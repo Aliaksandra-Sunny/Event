@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import event from './../img/Event1.png';
+import event from '../img/Event1.png';
 
 const Header = (props) => {
     return (
