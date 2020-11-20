@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import Login from "./components/Login/Login";
 import Header from "./Header/Header";
 import {Route} from "react-router-dom";
 import Footer from "./components/Footer/Footer";
+import LoginContainer from "./components/Login/LoginContainer";
 
 class App extends Component {
 
@@ -12,7 +12,7 @@ class App extends Component {
             <div className='app-wrapper'>
                 <Header/>
                 <div className="app-wrapper-content">
-                    <Route path="/login" render={() => <Login/>}/>
+                    <Route path="/login" render={() => <LoginContainer/>}/>
                 </div>
                 <Footer/>
             </div>

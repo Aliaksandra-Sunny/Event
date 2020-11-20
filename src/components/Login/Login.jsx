@@ -11,6 +11,7 @@ import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {ThemeProvider} from "@material-ui/styles";
 import styled from 'styled-components';
+import {authMe} from "../../redux/authReducer";
 
 function Copyright() {
     return (
@@ -25,47 +26,26 @@ function Copyright() {
     );
 }
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-        color: 'white',
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    text: {
-        color: 'white',
-    }
-}));
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            light: '#fff',
-            main: '#ffffff',
-            dark: '#1d53ff',
-            contrastText: '#fff',
-        },
-        secondary: {
-            light: '#ff7961',
-            main: '#098B6C',
-            dark: '#50ba50',
-            contrastText: '#000',
-        },
-    },
-});
+export default function SignIn(props) {
 
-const StyledTextField = styled(TextField)`
+    const theme = createMuiTheme({
+        palette: {
+            primary: {
+                light: '#fff',
+                main: '#ffffff',
+                dark: '#1d53ff',
+                contrastText: '#fff',
+            },
+            secondary: {
+                light: '#ff7961',
+                main: '#098B6C',
+                dark: '#50ba50',
+                contrastText: '#000',
+            },
+        },
+    });
+
+    const StyledTextField = styled(TextField)`
     && .MuiOutlinedInput-notchedOutline{
     border-color: white;
     }
@@ -80,8 +60,36 @@ const StyledTextField = styled(TextField)`
     }
     `;
 
-export default function SignIn() {
-    const classes = useStyles();
+    const Styles = makeStyles((theme) => ({
+        paper: {
+            marginTop: theme.spacing(8),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        avatar: {
+            margin: theme.spacing(1),
+            backgroundColor: theme.palette.secondary.main,
+        },
+        form: {
+            width: '100%', // Fix IE 11 issue.
+            marginTop: theme.spacing(1),
+            color: 'white',
+        },
+        submit: {
+            margin: theme.spacing(3, 0, 2),
+        },
+        text: {
+            color: 'white',
+        }
+    }));
+
+    const classes = Styles();
+    let handleSubmit = (event) => {
+        props.authMe(event.currentTarget[0].value,event.currentTarget[2].value);
+        console.log(event.currentTarget[0].value);
+        console.log(event.currentTarget[2].value);
+    };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -90,7 +98,7 @@ export default function SignIn() {
                     <Typography component="h2" variant="h5" color={"primary"}>
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} onSubmit={handleSubmit} noValidate>
                         <StyledTextField
                             variant="outlined"
                             margin="normal"
