@@ -7,28 +7,50 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 const StyledTextField = styled(TextField)`
-    && .MuiOutlinedInput-notchedOutline{
+    && {
+    color: white;
+    }
+    && .MuiOutlinedInput-notchedOutline {
         border-color: white;
     }
-    && .MuiOutlinedInput-input{
+    && .MuiOutlinedInput-input {
         color: white;
     }
-    && .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    && .MuiInputLabel-outlined.MuiInputLabel-shrink {
         color: white;
     }
-    && .MuiInputLabel-outlined{
+    && .MuiInputLabel-outlined {
         color: white;
     }
-    `;
+   `;
 
-export default function SignIn(props) {
+const Paper = styled.div`
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   `;
+
+const Form = styled.form`
+    width: 100%;
+    margin-top: 8px;
+    color: white;
+   `;
+
+const StyledButton = styled(Button)`
+    && {
+    margin: 24px 0 16px;    
+    }
+   `;
+
+const SignIn = props => {
     const history = useHistory();
 
     const theme = createMuiTheme({
@@ -48,44 +70,20 @@ export default function SignIn(props) {
         },
     });
 
-    const Styles = makeStyles(theme => ({
-        paper: {
-            marginTop: theme.spacing(8),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-        },
-        avatar: {
-            margin: theme.spacing(1),
-            backgroundColor: theme.palette.secondary.main,
-        },
-        form: {
-            width: '100%', // Fix IE 11 issue.
-            marginTop: theme.spacing(1),
-            color: 'white',
-        },
-        submit: {
-            margin: theme.spacing(3, 0, 2),
-        },
-        text: {
-            color: 'white',
-        },
-    }));
-
-    const classes = Styles();
     let handleAuthRequest = event => {
         props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
         history.push('/Profile');
     };
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <div className={classes.paper}>
+                <Paper>
                     <Typography component="h2" variant="h5" color="primary">
                         Sign in
                     </Typography>
-                    <form className={classes.form} onSubmit={handleAuthRequest} noValidate>
+                    <Form onSubmit={handleAuthRequest} noValidate>
                         <StyledTextField
                             variant="outlined"
                             margin="normal"
@@ -98,7 +96,6 @@ export default function SignIn(props) {
                             autoFocus
                         />
                         <StyledTextField
-                            className={classes.text}
                             variant="outlined"
                             margin="normal"
                             required
@@ -113,15 +110,14 @@ export default function SignIn(props) {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
-                        <Button
+                        <StyledButton
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="secondary"
-                            className={classes.submit}
                         >
                             Sign In
-                        </Button>
+                        </StyledButton>
                         <Grid container>
                             <Grid item xs>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -136,9 +132,10 @@ export default function SignIn(props) {
                                 </Link>
                             </Grid>
                         </Grid>
-                    </form>
-                </div>
+                    </Form>
+                </Paper>
             </Container>
         </ThemeProvider>
     );
-}
+};
+export default SignIn;
