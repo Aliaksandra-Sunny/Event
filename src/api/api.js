@@ -9,3 +9,9 @@ export const authAPI = {
         return instance.post('authenticate', { email, password });
     },
 };
+
+export const registrationAPI = {
+    registration(name, surname, email, password) {
+        return instance.post('registration', { name, surname, email, password });
+    },
+};
