@@ -1,24 +1,24 @@
 .footer {
-    border-top: 1px solid white;
-    grid-area: f;
-    background: #3C3847;
-    padding-left: 30px;
-    padding-right: 30px;
-    display: flex;
-    color: #098B6C;
-    align-items: center;
-    justify-content: space-between;
+  border-top: 1px solid white;
+  grid-area: f;
+  background: #3c3847;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  color: #098b6c;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.text{
-    color: white;
+.text {
+  color: white;
 }
 
 .socialNetworks {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .socialNetworks div {
-    padding-right: 10px;
+  padding-right: 10px;
 }

@@ -7,26 +7,29 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {ThemeProvider} from "@material-ui/styles";
+import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
-import {authMe} from "../../redux/authReducer";
+import { useHistory } from 'react-router-dom';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+const StyledTextField = styled(TextField)`
+    && .MuiOutlinedInput-notchedOutline{
+        border-color: white;
+    }
+    && .MuiOutlinedInput-input{
+        color: white;
+    }
+    && .MuiInputLabel-outlined.MuiInputLabel-shrink{
+        color: white;
+    }
+    && .MuiInputLabel-outlined{
+        color: white;
+    }
+    `;
 
 export default function SignIn(props) {
+    const history = useHistory();
 
     const theme = createMuiTheme({
         palette: {
@@ -45,22 +48,7 @@ export default function SignIn(props) {
         },
     });
 
-    const StyledTextField = styled(TextField)`
-    && .MuiOutlinedInput-notchedOutline{
-    border-color: white;
-    }
-    && .MuiOutlinedInput-input{
-    color: white;
-    }
-    && .MuiInputLabel-outlined.MuiInputLabel-shrink{
-    color: white;
-    }
-    && .MuiInputLabel-outlined{
-    color: white;
-    }
-    `;
-
-    const Styles = makeStyles((theme) => ({
+    const Styles = makeStyles(theme => ({
         paper: {
             marginTop: theme.spacing(8),
             display: 'flex',
@@ -81,24 +69,23 @@ export default function SignIn(props) {
         },
         text: {
             color: 'white',
-        }
+        },
     }));
 
     const classes = Styles();
-    let handleSubmit = (event) => {
-        props.authMe(event.currentTarget[0].value,event.currentTarget[2].value);
-        console.log(event.currentTarget[0].value);
-        console.log(event.currentTarget[2].value);
+    let handleAuthRequest = event => {
+        props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
+        history.push('/Profile');
     };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline/>
+                <CssBaseline />
                 <div className={classes.paper}>
-                    <Typography component="h2" variant="h5" color={"primary"}>
+                    <Typography component="h2" variant="h5" color="primary">
                         Sign in
                     </Typography>
-                    <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                    <form className={classes.form} onSubmit={handleAuthRequest} noValidate>
                         <StyledTextField
                             variant="outlined"
                             margin="normal"
@@ -110,19 +97,20 @@ export default function SignIn(props) {
                             autoComplete="email"
                             autoFocus
                         />
-                        <StyledTextField className={classes.text}
-                                         variant="outlined"
-                                         margin="normal"
-                                         required
-                                         fullWidth
-                                         name="password"
-                                         label="Password"
-                                         type="password"
-                                         id="password"
-                                         autoComplete="current-password"
+                        <StyledTextField
+                            className={classes.text}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
+                            control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
                         <Button
@@ -136,21 +124,20 @@ export default function SignIn(props) {
                         </Button>
                         <Grid container>
                             <Grid item xs>
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <Link href="#" variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>
                     </form>
                 </div>
-                {/*<Box mt={8}>*/}
-                {/*    <Copyright />*/}
-                {/*</Box>*/}
             </Container>
         </ThemeProvider>
     );

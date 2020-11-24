@@ -1,14 +1,14 @@
-.header{
-    grid-area: h;
-    background: #098B6C;
-    padding-left: 30px;
-    padding-right: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.login{
-    float: right;
-    color: #802416;
+.header {
+  grid-area: h;
+  background: #098b6c;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.login {
+  float: right;
+  color: #802416;
+}

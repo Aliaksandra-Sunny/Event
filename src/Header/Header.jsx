@@ -1,17 +1,17 @@
 import React from 'react';
-import style from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import style from './Header.module.css';
 import event from '../img/Event1.png';
 
-const Header = (props) => {
+const Header = () => {
     return (
         <header className={style.header}>
-            <img src={event}/>
+            <img src={event} alt="HeaderImg" />
             <div className={style.login}>
-               <NavLink to={"/login"}>Войти</NavLink>
+                <NavLink to="/login">Войти</NavLink>
             </div>
         </header>
-    )
+    );
 };
 
 export default Header;
