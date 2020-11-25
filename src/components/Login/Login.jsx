@@ -11,7 +11,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 
 const StyledTextField = styled(TextField)`
     && {
@@ -38,7 +37,7 @@ const Paper = styled.div`
     align-items: center;
    `;
 
-const Form = styled.form`
+const StyledForm = styled.form`
     width: 100%;
     margin-top: 8px;
     color: white;
@@ -51,7 +50,6 @@ const StyledButton = styled(Button)`
    `;
 
 const SignIn = props => {
-    const history = useHistory();
 
     const theme = createMuiTheme({
         palette: {
@@ -72,7 +70,6 @@ const SignIn = props => {
 
     let handleAuthRequest = event => {
         props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
-        history.push('/Profile');
     };
 
     return (
@@ -83,7 +80,10 @@ const SignIn = props => {
                     <Typography component="h2" variant="h5" color="primary">
                         Sign in
                     </Typography>
-                    <Form onSubmit={handleAuthRequest} noValidate>
+                    <StyledForm onSubmit={(e)=>{
+                        e.preventDefault();
+                        handleAuthRequest(e)
+                    }} noValidate>
                         <StyledTextField
                             variant="outlined"
                             margin="normal"
@@ -132,7 +132,7 @@ const SignIn = props => {
                                 </Link>
                             </Grid>
                         </Grid>
-                    </Form>
+                    </StyledForm>
                 </Paper>
             </Container>
         </ThemeProvider>

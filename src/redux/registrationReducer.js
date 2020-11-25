@@ -2,7 +2,12 @@ import { registrationAPI } from '../api/api';
 
 const SUCCESSFUL = 'SUCCESSFUL';
 
-const registrationReducer = (state = '', action) => {
+let initialState = {
+    userToken: null,
+    isAuth: false,
+};
+
+const registrationReducer = (state = initialState, action) => {
     switch (action.type) {
         case SUCCESSFUL:
             return { ...state, registration: true };
@@ -11,14 +16,14 @@ const registrationReducer = (state = '', action) => {
     }
 };
 
-const successful = data => {
-    return { type: SUCCESSFUL, data: { data } };
+const successful = token => {
+    return { type: SUCCESSFUL, data: { token } };
 };
 export const RegistrationMe = (name, surname, email, password) => {
     return async dispatch => {
         const response = await registrationAPI.registration(name, surname, email, password);
         if (response.status === 200) {
-            return dispatch(successful(response.data));
+            return dispatch(successful(response.data.token));
         }
 
     };

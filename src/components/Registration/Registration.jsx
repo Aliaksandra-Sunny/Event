@@ -71,7 +71,6 @@ const Registration = props => {
 
     let handleRegistrationRequest = event => {
         props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
-        history.push('/login');
     };
 
     return (
@@ -110,7 +109,7 @@ const Registration = props => {
                             required
                             fullWidth
                             name="email"
-                            label="email"
+                            label="Email"
                             id="email"
                             autoComplete="email"
                         />
@@ -130,7 +129,7 @@ const Registration = props => {
                             required
                             fullWidth
                             name="repeatPassword"
-                            label="повторите пароль"
+                            label="Повторите пароль"
                             id="repeatPassword"
                             autoComplete="repeatPassword"
                         />

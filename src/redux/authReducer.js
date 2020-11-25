@@ -22,8 +22,8 @@ const setUserData = userToken => {
 export const authMe = (email, password) => {
     return async dispatch => {
         const response = await authAPI.authenticate(email, password);
-        if (response.token) {
-            let userToken = response.token;
+        if (response.data.token) {
+            let userToken = response.data.token;
             return dispatch(setUserData(userToken));
         }
 
