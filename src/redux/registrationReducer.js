@@ -1,6 +1,6 @@
 import { registrationAPI } from '../api/api';
 
-const SUCCESSFUL = 'SUCCESSFUL';
+const SET_USER_DATA = 'SET-USER-DATA';
 
 let initialState = {
     userToken: null,
@@ -9,21 +9,22 @@ let initialState = {
 
 const registrationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SUCCESSFUL:
-            return { ...state, registration: true };
+        case SET_USER_DATA:
+            return { ...state, ...action.userToken, isAuth: true };
         default:
             return state;
     }
 };
 
-const successful = token => {
-    return { type: SUCCESSFUL, data: { token } };
+const setUserData = userToken => {
+    return { type: SET_USER_DATA, userToken: { userToken } };
 };
-export const RegistrationMe = (name, surname, email, password) => {
+export const RegistrationMe = data => {
     return async dispatch => {
-        const response = await registrationAPI.registration(name, surname, email, password);
-        if (response.status === 200) {
-            return dispatch(successful(response.data.token));
+        const response = await registrationAPI.registration(data);
+        if (response.data.token) {
+            let userToken = response.data.token;
+            return dispatch(setUserData(userToken));
         }
 
     };

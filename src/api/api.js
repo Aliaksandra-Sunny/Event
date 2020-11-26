@@ -12,6 +12,13 @@ export const authAPI = {
 
 export const registrationAPI = {
     registration(data) {
-        return instance.post('registration', { data });
+        const { email, name, surname, password } = data;
+        const requestData = {
+            email,
+            password,
+            name,
+            surname,
+        };
+        return instance.post('registration', requestData);
     },
 };

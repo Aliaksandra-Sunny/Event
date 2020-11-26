@@ -71,7 +71,8 @@ const SignIn = props => {
         },
         validationSchema,
         onSubmit: values => {
-            props.authMe(values);
+            const { authMe } = props;
+            authMe(values);
         },
     });
 
@@ -105,7 +106,6 @@ const SignIn = props => {
                             event.preventDefault();
                             formik.handleSubmit(event);
                         }}
-                        noValidate
                     >
                         <StyledTextField
                             helperText={formik.touched.email && formik.errors.email}

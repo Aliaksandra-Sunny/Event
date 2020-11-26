@@ -9,6 +9,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const StyledTextField = styled(TextField)`
     && {
@@ -48,7 +50,43 @@ const StyledButton = styled(Button)`
     }
    `;
 
+const validationSchema = yup.object({
+    name: yup
+        .string('Enter your name')
+        .required('Name is required'),
+    surname: yup
+        .string('Enter your surname')
+        .required('Surname is required'),
+    email: yup
+        .string('Enter your surname')
+        .required('Password is required')
+        .email('Enter a valid email'),
+    password: yup
+        .string('Enter your password')
+        .required('Password is required')
+        .min(8, 'Min length are 8'),
+    repeatPassword: yup
+        .string('Enter your password')
+        .required('Password is required')
+        .min(8, 'Min length are 8'),
+});
+
 const Registration = props => {
+
+    const formik = useFormik({
+        initialValues: {
+            name: 'Tolya',
+            surname: 'Kravtsov',
+            email: 'tolyanchik2012@gmail.com',
+            password: 'qwerty12345',
+            repeatPassword: 'qwerty12345',
+        },
+        validationSchema,
+        onSubmit: values => {
+            const { RegistrationMe } = props;
+            RegistrationMe(values);
+        },
+    });
 
     const theme = createMuiTheme({
         palette: {
@@ -67,11 +105,6 @@ const Registration = props => {
         },
     });
 
-    let handleRegistrationRequest = event => {
-        const { authMe } = props;
-        authMe(event.currentTarget[0].value, event.currentTarget[2].value);
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -83,10 +116,14 @@ const Registration = props => {
                     <Form
                         onSubmit={event => {
                             event.preventDefault();
-                            handleRegistrationRequest(event);
+                            formik.handleSubmit(event);
                         }}
                     >
                         <StyledTextField
+                            helperText={formik.touched.name && formik.errors.name}
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
@@ -95,19 +132,25 @@ const Registration = props => {
                             label="Имя"
                             name="name"
                             autoComplete="Имя"
-                            autoFocus
                         />
                         <StyledTextField
+                            helperText={formik.touched.surname && formik.errors.surname}
+                            error={formik.touched.surname && Boolean(formik.errors.surname)}
+                            value={formik.values.surname}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="Surname"
+                            id="surname"
                             label="Фамилия"
-                            id="Surname"
-                            autoComplete="surname"
+                            name="surname"
                         />
                         <StyledTextField
+                            helperText={formik.touched.email && formik.errors.email}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
@@ -115,9 +158,12 @@ const Registration = props => {
                             name="email"
                             label="Email"
                             id="email"
-                            autoComplete="email"
                         />
                         <StyledTextField
+                            helperText={formik.touched.password && formik.errors.password}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
@@ -125,9 +171,14 @@ const Registration = props => {
                             name="password"
                             label="Пароль"
                             id="password"
-                            autoComplete="password"
+                            autoComplete="current-password"
+                            type="password"
                         />
                         <StyledTextField
+                            helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
+                            error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+                            value={formik.values.repeatPassword}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
@@ -135,7 +186,8 @@ const Registration = props => {
                             name="repeatPassword"
                             label="Повторите пароль"
                             id="repeatPassword"
-                            autoComplete="repeatPassword"
+                            autoComplete="current-password"
+                            type="password"
                         />
                         <StyledButton
                             type="submit"
