@@ -11,6 +11,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const StyledTextField = styled(TextField)`
     && {
@@ -45,11 +47,33 @@ const StyledForm = styled.form`
 
 const StyledButton = styled(Button)`
     && {
-    margin: 24px 0 16px;    
+        margin: 24px 0 16px;    
     }
    `;
 
+const validationSchema = yup.object({
+    email: yup
+        .string('Enter your email')
+        .email('Enter a valid email')
+        .required('Email is required'),
+    password: yup
+        .string('Enter your password')
+        .min(8, 'Password should be of minimum 8 characters length')
+        .required('Password is required'),
+});
+
 const SignIn = props => {
+
+    const formik = useFormik({
+        initialValues: {
+            email: 'vasyher@gmail.com',
+            password: 'qwerty12345',
+        },
+        validationSchema,
+        onSubmit: values => {
+            props.authMe(values);
+        },
+    });
 
     const theme = createMuiTheme({
         palette: {
@@ -68,10 +92,6 @@ const SignIn = props => {
         },
     });
 
-    let handleAuthRequest = event => {
-        props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -80,11 +100,18 @@ const SignIn = props => {
                     <Typography component="h2" variant="h5" color="primary">
                         Sign in
                     </Typography>
-                    <StyledForm onSubmit={(e)=>{
-                        e.preventDefault();
-                        handleAuthRequest(e)
-                    }} noValidate>
+                    <StyledForm
+                        onSubmit={event => {
+                            event.preventDefault();
+                            formik.handleSubmit(event);
+                        }}
+                        noValidate
+                    >
                         <StyledTextField
+                            helperText={formik.touched.email && formik.errors.email}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
@@ -96,6 +123,10 @@ const SignIn = props => {
                             autoFocus
                         />
                         <StyledTextField
+                            helperText={formik.touched.password && formik.errors.password}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required

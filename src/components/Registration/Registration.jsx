@@ -9,7 +9,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 
 const StyledTextField = styled(TextField)`
     && {
@@ -50,7 +49,6 @@ const StyledButton = styled(Button)`
    `;
 
 const Registration = props => {
-    const history = useHistory();
 
     const theme = createMuiTheme({
         palette: {
@@ -70,7 +68,8 @@ const Registration = props => {
     });
 
     let handleRegistrationRequest = event => {
-        props.authMe(event.currentTarget[0].value, event.currentTarget[2].value);
+        const { authMe } = props;
+        authMe(event.currentTarget[0].value, event.currentTarget[2].value);
     };
 
     return (
@@ -81,7 +80,12 @@ const Registration = props => {
                     <Typography component="h2" variant="h5" color="primary">
                         Registration
                     </Typography>
-                    <Form onSubmit={handleRegistrationRequest} noValidate>
+                    <Form
+                        onSubmit={event => {
+                            event.preventDefault();
+                            handleRegistrationRequest(event);
+                        }}
+                    >
                         <StyledTextField
                             variant="outlined"
                             margin="normal"

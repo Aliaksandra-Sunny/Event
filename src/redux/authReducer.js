@@ -19,7 +19,8 @@ const authReducer = (state = initialState, action) => {
 const setUserData = userToken => {
     return { type: SET_USER_DATA, userToken: { userToken } };
 };
-export const authMe = (email, password) => {
+export const authMe = data => {
+    const { email, password } = data;
     return async dispatch => {
         const response = await authAPI.authenticate(email, password);
         if (response.data.token) {
