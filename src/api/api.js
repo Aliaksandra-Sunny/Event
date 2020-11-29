@@ -1,5 +1,7 @@
 import * as axios from 'axios';
 
+const token = localStorage.token;
+
 const instance = axios.create({
     baseURL: 'http://localhost:8081/',
 });
@@ -20,6 +22,23 @@ export const registrationAPI = {
             surname,
         };
         return instance.post('registration', requestData);
+    },
+};
+
+export const eventPageAPI = {
+    getEventPhoto() {
+        return instance.get('picture/25?format=base64', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    },
+    getEventInfo() {
+        return instance.get('event/24', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
     },
 };
 

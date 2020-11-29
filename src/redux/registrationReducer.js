@@ -23,6 +23,7 @@ export const RegistrationMe = data => {
     return async dispatch => {
         const response = await registrationAPI.registration(data);
         if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
             let userToken = response.data.token;
             return dispatch(setUserData(userToken));
         }

@@ -24,7 +24,7 @@ export const authMe = data => {
     return async dispatch => {
         const response = await authAPI.authenticate(email, password);
         if (response.data.token) {
-           // alert('ТВОЙ ТОКЕН' + response.data.token);
+            localStorage.setItem('token', response.data.token);
             let userToken = response.data.token;
             return dispatch(setUserData(userToken));
         }

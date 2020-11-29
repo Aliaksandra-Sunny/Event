@@ -8,6 +8,7 @@ import LoginContainer from './components/Login/LoginContainer';
 import store from './redux/redux-store';
 import RegistrationContainer from './components/Registration/RegistrationContainer';
 import MainContainer from "./components/Main/MainContainer";
+import EventCardContainer from './components/EventCard/EventCardContainer';
 
 const App = () => (
     <Provider store={store}>
@@ -18,6 +19,8 @@ const App = () => (
                     <Route path="/login" render={() => <LoginContainer />} />
                     <Route path="/registration" render={() => <RegistrationContainer />}/>
                     <Route path={"/"} render={()=> <MainContainer/>}/>
+                    <Route path="/registration" render={() => <RegistrationContainer />} />
+                    <Route path="/event" render={() => <EventCardContainer />} />
                 </div>
                 <Footer />
             </div>
