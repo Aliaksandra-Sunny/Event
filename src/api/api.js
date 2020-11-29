@@ -22,3 +22,9 @@ export const registrationAPI = {
         return instance.post('registration', requestData);
     },
 };
+
+export const eventAPI = {
+    mainMenu(){
+        return instance.get('main')
+    }
+}

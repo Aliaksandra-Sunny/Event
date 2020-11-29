@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import style from './Header.module.css';
-import event from '../img/Event1.png';
+import event from '../../img/Event1.png';
 
 const SignIn = styled.span`
     margin-right: 30px;

@@ -4,8 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-.eslintrc.js
-.eslintignore
+./.eslintignore
+./.eslintrc.js
 
 # testing
 /coverage
