@@ -7,8 +7,8 @@ const MainEventCard = styled.div`
 `;
 
 const EventPhoto = styled.div`
-    height: 345px;
-    width: 728px;
+    height: 40px;
+    width: 40px;
 `;
 
 const EventDescription = styled.div`
@@ -27,7 +27,8 @@ const EventVizitors = styled.div`
 `;
 
 const StyledImg = styled.img`
-    
+    width: 50px;
+    height: 50px;
 `;
 
 const SimilarEvent = styled.div``;
@@ -35,8 +36,7 @@ const AboutEvent = styled.div``;
 
 const EventCard = props => {
 
-    const { photo } = props;
-
+    const { photo, author, title, description, category, start, finish, place } = props;
     return (
         <MainEventCard>
             <SimilarEvent>
@@ -47,13 +47,17 @@ const EventCard = props => {
                     <StyledImg src={`${photo}`} alt="EventPhoto" />
                 </EventPhoto>
                 <EventDescription>
-                    Описание
+                    {title}
+                    {description}
                 </EventDescription>
                 <EventTimeAndDate>
-                    Дата и время
+                    {start}
+                    {finish}
+                    {place}
+                    {category}
                 </EventTimeAndDate>
                 <EventVizitors>
-                    Посетители
+                    {author.name}
                 </EventVizitors>
             </AboutEvent>
         </MainEventCard>

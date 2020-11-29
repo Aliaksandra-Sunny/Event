@@ -26,8 +26,15 @@ export const registrationAPI = {
 };
 
 export const eventPageAPI = {
-    getEventInfo() {
+    getEventPhoto() {
         return instance.get('picture/25?format=base64', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    },
+    getEventInfo() {
+        return instance.get('event/24', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
