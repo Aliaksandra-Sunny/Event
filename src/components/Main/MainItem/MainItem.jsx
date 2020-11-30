@@ -2,32 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
-    height: 90px;
-    width: 90px;
-    border: 1px red solid;
+    height: 120px;
+    width: 120px;
     text-align: center;
     grid-area: auto;
 `;
-
-// eslint-disable-next-line no-unused-vars
 const StyledImg = styled.img`
     width: 100%;
     height: 90%;
     top: 0;
     `;
 
-// eslint-disable-next-line no-unused-vars
-const Name = styled.span`
+const Title = styled.div`
     color: white;
-    `;
+`;
 
 const MainItem = props => {
-    const { events } = props;
+    const { logo, title } = props;
     return (
         <Item>
-            <div>
-                {events.id}
-            </div>
+            <StyledImg src={logo} alt="Main Logo" />
+            <Title>
+                {title}
+            </Title>
         </Item>
     );
 };

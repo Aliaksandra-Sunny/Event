@@ -102,8 +102,6 @@ const EventCard = props => {
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
 
-    // eslint-disable-next-line no-debugger
-    debugger;
     return (
         <MainEventCard>
             <SimilarEvent />

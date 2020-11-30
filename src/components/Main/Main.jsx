@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import MainItem from './MainItem/MainItem';
+import logos from '../../img/MainLogos/Logos';
 
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    border: 1px white solid;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,6 @@ const Container = styled.div`
 
 const FlexContainer = styled.div`
     max-width: 80%;
-    border: 1px white solid;
     display: grid;
     grid-template-areas:
         "first first first" 
@@ -25,14 +24,13 @@ const FlexContainer = styled.div`
     grid-gap: 70px;
 `;
 
-const Main = props => {
-    const { events } = props;
+const Main = () => {
+    const logosArray = Object.entries(logos);
     return (
         <Container>
             <FlexContainer>
-                {events.map(events => (<MainItem events={events} />))}
+                {logosArray.map(logo => (<MainItem logo={logo[1]} title={logo[0]} />))}
             </FlexContainer>
-
         </Container>
     );
 };

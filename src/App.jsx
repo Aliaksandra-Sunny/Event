@@ -7,7 +7,7 @@ import Footer from './components/Footer/Footer';
 import LoginContainer from './components/Login/LoginContainer';
 import store from './redux/redux-store';
 import RegistrationContainer from './components/Registration/RegistrationContainer';
-import MainContainer from './components/Main/MainContainer';
+import Main from './components/Main/Main';
 import EventCardContainer from './components/EventCard/EventCardContainer';
 
 const App = () => (
@@ -18,7 +18,7 @@ const App = () => (
                 <div className="app-wrapper-content">
                     <Route path="/login" render={() => <LoginContainer />} />
                     <Route path="/registration" render={() => <RegistrationContainer />} />
-                    <Route path="/main" render={() => <MainContainer />} />
+                    <Route path="/main" render={() => <Main />} />
                     <Route path="/event" render={() => <EventCardContainer />} />
                 </div>
                 <Footer />
