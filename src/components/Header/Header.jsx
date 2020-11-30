@@ -13,12 +13,17 @@ const StyledNavLink = styled(NavLink)`
     color: white;
 `;
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    cursor: pointer;
+`;
+
 const Header = () => {
     return (
         <header className={style.header}>
-            <Link to="/main">
+            <StyledLink to="/main">
                 <img src={event} alt="HeaderImg" />
-            </Link>
+            </StyledLink>
             <div className={style.login}>
                 <SignIn>
                     <StyledNavLink to="/login">Sign in</StyledNavLink>

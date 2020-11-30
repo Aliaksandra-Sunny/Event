@@ -19,7 +19,6 @@ const App = () => (
                     <Route path="/login" render={() => <LoginContainer />} />
                     <Route path="/registration" render={() => <RegistrationContainer />} />
                     <Route path="/main" render={() => <MainContainer />} />
-                    <Route path="/registration" render={() => <RegistrationContainer />} />
                     <Route path="/event" render={() => <EventCardContainer />} />
                 </div>
                 <Footer />

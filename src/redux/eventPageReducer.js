@@ -33,12 +33,16 @@ export const setEventInfoAC = eventInfo => ({ type: SET_EVENT_INFO, eventInfo })
 
 export const getEventPhoto = () => async dispatch => {
     const response = await eventPageAPI.getEventPhoto();
-    dispatch(setEventPhotoAC(response.data));
+    if (response.status === 200) {
+        dispatch(setEventPhotoAC(response.data));
+    }
 };
 
 export const getEventInfo = () => async dispatch => {
     const response = await eventPageAPI.getEventInfo();
-    dispatch(setEventInfoAC(response.data));
+    if (response.status === 200) {
+        dispatch(setEventInfoAC(response.data));
+    }
 };
 
 export default eventPageReducer;

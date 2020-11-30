@@ -34,7 +34,7 @@ export const registrationAPI = {
 
 export const eventPageAPI = {
     getEventPhoto() {
-        return tokenInstance.get('picture/25?format=base64');
+        return tokenInstance.get('picture/40?format=base64');
     },
     getEventInfo() {
         return tokenInstance.get('event/24');
