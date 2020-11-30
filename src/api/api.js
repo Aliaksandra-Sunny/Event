@@ -6,6 +6,13 @@ const instance = axios.create({
     baseURL: 'http://localhost:8081/',
 });
 
+const tokenInstance = axios.create({
+    baseURL: 'http://localhost:8081/',
+    headers: {
+        Authorization: `Bearer ${token}`,
+    },
+});
+
 export const authAPI = {
     authenticate(email, password) {
         return instance.post('authenticate', { email, password });
@@ -27,23 +34,12 @@ export const registrationAPI = {
 
 export const eventPageAPI = {
     getEventPhoto() {
-        return instance.get('picture/25?format=base64', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        return tokenInstance.get('picture/25?format=base64');
     },
     getEventInfo() {
-        return instance.get('event/24', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        return tokenInstance.get('event/24');
+    },
+    getAllEvents() {
+        return tokenInstance.get('events');
     },
 };
-
-export const eventAPI = {
-    mainMenu(){
-        return instance.get('main')
-    }
-}

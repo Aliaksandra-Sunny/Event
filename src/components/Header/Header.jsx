@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import style from './Header.module.css';
 import event from '../../img/Event1.png';
@@ -16,7 +16,9 @@ const StyledNavLink = styled(NavLink)`
 const Header = () => {
     return (
         <header className={style.header}>
-            <img src={event} alt="HeaderImg" />
+            <Link to="/main">
+                <img src={event} alt="HeaderImg" />
+            </Link>
             <div className={style.login}>
                 <SignIn>
                     <StyledNavLink to="/login">Sign in</StyledNavLink>

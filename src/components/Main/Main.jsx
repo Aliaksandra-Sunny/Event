@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MainItem from "./MainItem/MainItem";
+import MainItem from './MainItem/MainItem';
 
 const Container = styled.div`
     width: 100%;
@@ -25,13 +25,12 @@ const FlexContainer = styled.div`
     grid-gap: 70px;
 `;
 
-const Main = (props) => {
-    const {photos} = props;
+const Main = props => {
+    const { events } = props;
     return (
         <Container>
             <FlexContainer>
-                {photos.map(photo =>
-                    (<MainItem photo={photo}/>))}
+                {events.map(events => (<MainItem events={events} />))}
             </FlexContainer>
 
         </Container>

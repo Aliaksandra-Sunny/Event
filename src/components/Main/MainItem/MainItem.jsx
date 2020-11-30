@@ -9,23 +9,25 @@ const Item = styled.div`
     grid-area: auto;
 `;
 
+// eslint-disable-next-line no-unused-vars
 const StyledImg = styled.img`
     width: 100%;
     height: 90%;
     top: 0;
     `;
 
+// eslint-disable-next-line no-unused-vars
 const Name = styled.span`
     color: white;
     `;
 
-const MainItem = (props) => {
-    const {photo} = props;
+const MainItem = props => {
+    const { events } = props;
     return (
         <Item>
-            <StyledImg src={photo.src}
-                       alt={photo.id}/>
-            <Name>{photo.name}</Name>
+            <div>
+                {events.id}
+            </div>
         </Item>
     );
 };

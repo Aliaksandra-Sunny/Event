@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Main from "./Main";
-import {setMainData} from "../../redux/mainReducer";
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Main from './Main';
+import { setMainData } from '../../redux/mainReducer';
 
-const MainContainer = props => (
-    <Main {...props} />
-);
+const MainContainer = props => {
+
+    const { events, setMainData } = props;
+
+    useEffect(() => {
+        setMainData();
+    }, []);
+
+    return (
+        <div>
+            {
+                events ?
+                    <Main events={events} /> :
+                    <LinearProgress color="secondary" />
+            }
+        </div>
+
+    );
+
+};
 
 const mapStateToProps = state => {
     return {
-        photos: state.mainPage.photos,
+        events: state.mainPage.events,
     };
 };
 
