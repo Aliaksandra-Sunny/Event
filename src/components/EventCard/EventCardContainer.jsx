@@ -2,10 +2,23 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import EventCard from './EventCard';
-import { getEventPhoto, getEventInfo } from '../../redux/eventPageReducer';
+import { getEventPhoto, getEventInfo, follow, unfollow } from '../../redux/eventPageReducer';
 
 const EventCardContainer = props => {
-    const { getEventPhoto, photo, id, getEventInfo } = props;
+    const {
+        getEventPhoto,
+        photo,
+        id, getEventInfo,
+        author,
+        description,
+        category,
+        start,
+        finish,
+        place,
+        followed,
+        follow,
+        unfollow,
+    } = props;
 
     useEffect(() => {
         getEventPhoto();
@@ -15,8 +28,20 @@ const EventCardContainer = props => {
     return (
         <div>
             {
-                photo && id ?
-                    <EventCard {...props} /> :
+                photo && id ? (
+                    <EventCard
+                        photo={photo}
+                        author={author}
+                        description={description}
+                        category={category}
+                        start={start}
+                        finish={finish}
+                        place={place}
+                        followed={followed}
+                        follow={follow}
+                        unfollow={unfollow}
+                    />
+                ) :
                     <LinearProgress color="secondary" />
             }
         </div>
@@ -25,6 +50,7 @@ const EventCardContainer = props => {
 };
 const mapStateToProps = state => {
     return {
+        followed: state.eventPage.followed,
         photo: state.eventPage.eventPhoto,
         id: state.eventPage.id,
         title: state.eventPage.title,
@@ -40,4 +66,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
     getEventPhoto,
     getEventInfo,
+    follow,
+    unfollow,
 })(EventCardContainer);

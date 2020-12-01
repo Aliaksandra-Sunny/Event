@@ -4,6 +4,7 @@ import moment from 'moment';
 import EventIcon from '@material-ui/icons/Event';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
+import OutlinedButton from '../../common/OutlinedButton';
 
 const blockWidth = 728;
 const white = '#FFFFFF';
@@ -32,6 +33,7 @@ const EventPhoto = styled.div`
     width: ${blockWidth}px;
     height: 345px;
     margin-bottom: 20px;
+    position: relative;
 `;
 
 const EventDescription = styled.div`
@@ -76,16 +78,10 @@ const Description = styled.div`
     margin: 35px 0 0 57px;
 `;
 
-const Date = styled.div`
+const DateAndPlace = styled.div`
     margin-left: 30px;
-`;
-
-const Time = styled.div`
-    margin-left: 30px;
-`;
-
-const Place = styled.div`
-    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
 `;
 
 const DateAndPlaceBlock = styled.div`
@@ -95,9 +91,21 @@ const DateAndPlaceBlock = styled.div`
     }
 `;
 
+const Info = styled.div`
+    margin: 5px 5px 5px 15px;
+`;
+
+const ButtonWrapper = styled.div`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+`;
+
 const EventCard = props => {
 
-    const { photo, author, description, category, start, finish, place } = props;
+    const { photo, author, description, category, start, finish, place, follow, unfollow, followed } = props;
+    // eslint-disable-next-line no-debugger
+    debugger;
     const dayOfEvent = moment(start).format('L:');
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
@@ -108,6 +116,15 @@ const EventCard = props => {
             <AboutEvent>
                 <EventPhoto>
                     <StyledImg src={`${photo}`} alt="EventPhoto" />
+                    <ButtonWrapper>
+                        {
+                            followed ? (
+                                <OutlinedButton text="Не пойду" handler={unfollow} />
+                            ) : (
+                                <OutlinedButton text="Пойду" handler={follow} />
+                            )
+                        }
+                    </ButtonWrapper>
                 </EventPhoto>
                 <EventDescription>
                     <Title>
@@ -119,20 +136,26 @@ const EventCard = props => {
                 </EventDescription>
                 <EventTimeAndDate>
                     <DateAndPlaceBlock>
-                        <Time>
-                            <QueryBuilderIcon />
-                            {timeOfEvent}
-                            {' - '}
-                            {timeOfEndEvent}
-                        </Time>
-                        <Date>
-                            <EventIcon />
-                            {dayOfEvent}
-                        </Date>
-                        <Place>
-                            <PlaceOutlinedIcon />
-                            {place}
-                        </Place>
+                        <DateAndPlace>
+                            <QueryBuilderIcon style={{ fontSize: 30 }} />
+                            <Info>
+                                {timeOfEvent}
+                                {' - '}
+                                {timeOfEndEvent}
+                            </Info>
+                        </DateAndPlace>
+                        <DateAndPlace>
+                            <EventIcon style={{ fontSize: 30 }} />
+                            <Info>
+                                {dayOfEvent}
+                            </Info>
+                        </DateAndPlace>
+                        <DateAndPlace>
+                            <PlaceOutlinedIcon style={{ fontSize: 30 }} />
+                            <Info>
+                                {place}
+                            </Info>
+                        </DateAndPlace>
                     </DateAndPlaceBlock>
                 </EventTimeAndDate>
                 <EventVizitors>

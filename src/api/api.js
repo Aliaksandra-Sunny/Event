@@ -36,10 +36,21 @@ export const eventPageAPI = {
     getEventPhoto() {
         return tokenInstance.get('picture/40?format=base64');
     },
+
     getEventInfo() {
         return tokenInstance.get('event/24');
     },
+
     getAllEvents() {
         return tokenInstance.get('events');
     },
+
+    follow() {
+        return tokenInstance.post('/event/24/go');
+    },
+
+    unfollow() {
+        return tokenInstance.delete('/event/24/leave');
+    },
+
 };
