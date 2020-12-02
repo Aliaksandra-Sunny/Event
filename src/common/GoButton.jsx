@@ -2,10 +2,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-const OutLinedButton = styled(Button)`
+const GoButton = styled(Button)`
     & .MuiButton-label {
         color: white;  
-        font-weight: 400; 
+        font-weight: 400;
+        text-transform: none;
     }
 `;
 
@@ -21,7 +22,7 @@ export default props => {
 
     return (
         <OutlinedWrapper>
-            <OutLinedButton variant="outlined" onClick={handler}>{text}</OutLinedButton>
+            <GoButton variant="outlined" onClick={handler}>{text}</GoButton>
         </OutlinedWrapper>
     );
 };

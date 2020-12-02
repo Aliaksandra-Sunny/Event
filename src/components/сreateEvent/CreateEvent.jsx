@@ -2,10 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -33,7 +29,7 @@ const StyledTextField = styled(TextField)`
         color: ${white};
     }
     && .MuiInputLabel-outlined {
-        color: ${white}
+        color: ${white};
     }
    `;
 
@@ -52,32 +48,42 @@ const StyledForm = styled.form`
 
 const StyledButton = styled(Button)`
     && {
+        border: 2px solid #098b6c;
         margin: 24px 0 16px;    
     }
    `;
 
+const Title = styled(Typography)`
+    && {
+        margin-bottom: 25px;
+    }
+   `;
+
 const validationSchema = yup.object({
-    email: yup
-        .string('Enter your email')
-        .email('Enter a valid email')
-        .required('Email is required'),
-    password: yup
-        .string('Enter your password')
-        .min(8, 'Password should be of minimum 8 characters length')
-        .required('Password is required'),
+    title: yup
+        .string('Введите название мероприятия')
+        .required('Event name is required'),
+    category: yup
+        .string('Введите категорию мероприятия')
+        .required('Category is required'),
+    description: yup
+        .string('Введите описание мероприятия')
+        .min(20, 'Description should be of minimum 20 characters length')
+        .required('Description is required'),
 });
 
-const SignIn = props => {
+const CreateEvent = props => {
 
     const formik = useFormik({
         initialValues: {
-            email: 'vasyher@gmail.com',
-            password: 'qwerty12345',
+            title: '',
+            category: '',
+            description: '',
         },
         validationSchema,
-        onSubmit: values => {
-            const { authMe } = props;
-            authMe(values);
+        onSubmit: data => {
+            const { createEvent } = props;
+            createEvent(data);
         },
     });
 
@@ -103,8 +109,12 @@ const SignIn = props => {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Paper>
-                    <Typography component="h2" variant="h5" color="primary">
-                        Sign in
+                    <Title component="h2" variant="h5" color="primary">
+                        Новое мероприятие
+                    </Title>
+                    <Typography component="h6" variant="body2" color="primary">
+                        {/* eslint-disable-next-line max-len */}
+                        Заполните необходимые поля ниже наиболее подробно, это даст полную информацию о предстоящем событии.
                     </Typography>
                     <StyledForm
                         onSubmit={event => {
@@ -113,65 +123,58 @@ const SignIn = props => {
                         }}
                     >
                         <StyledTextField
-                            helperText={formik.touched.email && formik.errors.email}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            value={formik.values.email}
+                            helperText={formik.touched.title && formik.errors.title}
+                            error={formik.touched.title && Boolean(formik.errors.title)}
+                            value={formik.values.title}
                             onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="title"
+                            label="Event Name"
+                            name="title"
                             autoFocus
                         />
                         <StyledTextField
-                            helperText={formik.touched.password && formik.errors.password}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            value={formik.values.password}
+                            helperText={formik.touched.category && formik.errors.category}
+                            error={formik.touched.category && Boolean(formik.errors.category)}
+                            value={formik.values.category}
                             onChange={formik.handleChange}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
+                            id="category"
+                            label="Category"
+                            name="category"
+                            autoFocus
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                        <StyledTextField
+                            helperText={formik.touched.description && formik.errors.description}
+                            error={formik.touched.description && Boolean(formik.errors.description)}
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="description"
+                            label="Description"
+                            id="description"
                         />
                         <StyledButton
                             type="submit"
                             fullWidth
-                            variant="contained"
+                            variant="outlined"
                             color="secondary"
                         >
-                            Sign In
+                            Create
                         </StyledButton>
-                        <Grid container>
-                            <Grid item xs>
-                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <Link href="#" variant="body2">
-                                    Don't have an account? Sign Up
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </StyledForm>
                 </Paper>
             </Container>
         </ThemeProvider>
     );
 };
-export default SignIn;
+export default CreateEvent;

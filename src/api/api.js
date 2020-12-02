@@ -46,11 +46,25 @@ export const eventPageAPI = {
     },
 
     follow() {
-        return tokenInstance.post('/event/24/go');
+        return tokenInstance.post('event/24/go');
     },
 
     unfollow() {
-        return tokenInstance.delete('/event/24/leave');
+        return tokenInstance.delete('event/24/leave');
     },
 
+};
+
+export const createEventAPI = {
+    createEvent(data) {
+
+        const { title, category, description } = data;
+
+        const requestData = {
+            title,
+            description,
+            category,
+        };
+        return tokenInstance.post('event', requestData);
+    },
 };

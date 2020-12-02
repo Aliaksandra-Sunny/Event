@@ -12,22 +12,26 @@ import styled from 'styled-components';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
+const white = '#ffffff';
+
 const StyledTextField = styled(TextField)`
     && {
-    color: white;
+    color: ${white};
     }
     && .MuiOutlinedInput-notchedOutline {
-        border-color: white;
+        border-color: ${white};
+    }
+    &&:hover .MuiOutlinedInput-notchedOutline {
+        border-color: ${white};
     }
     && .MuiOutlinedInput-input {
-        border-radius: 10px;
-        color: white;
+        color: ${white};
     }
     && .MuiInputLabel-outlined.MuiInputLabel-shrink {
-        color: white;
+        color: ${white};
     }
     && .MuiInputLabel-outlined {
-        color: white;
+        color: ${white};
     }
    `;
 

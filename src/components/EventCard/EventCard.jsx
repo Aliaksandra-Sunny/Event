@@ -4,7 +4,7 @@ import moment from 'moment';
 import EventIcon from '@material-ui/icons/Event';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
-import OutlinedButton from '../../common/OutlinedButton';
+import GoButton from '../../common/GoButton';
 
 const blockWidth = 728;
 const white = '#FFFFFF';
@@ -104,8 +104,6 @@ const ButtonWrapper = styled.div`
 const EventCard = props => {
 
     const { photo, author, description, category, start, finish, place, follow, unfollow, followed } = props;
-    // eslint-disable-next-line no-debugger
-    debugger;
     const dayOfEvent = moment(start).format('L:');
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
@@ -119,9 +117,9 @@ const EventCard = props => {
                     <ButtonWrapper>
                         {
                             followed ? (
-                                <OutlinedButton text="Не пойду" handler={unfollow} />
+                                <GoButton text="Не пойду" handler={unfollow} />
                             ) : (
-                                <OutlinedButton text="Пойду" handler={follow} />
+                                <GoButton text="Пойду" handler={follow} />
                             )
                         }
                     </ButtonWrapper>

@@ -1,4 +1,4 @@
-import { registrationAPI } from '../api/api';
+import { authAPI } from '../../api/api';
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
@@ -7,7 +7,7 @@ let initialState = {
     isAuth: false,
 };
 
-const registrationReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return { ...state, ...action.userToken, isAuth: true };
@@ -19,9 +19,10 @@ const registrationReducer = (state = initialState, action) => {
 const setUserData = userToken => {
     return { type: SET_USER_DATA, userToken: { userToken } };
 };
-export const RegistrationMe = data => {
+export const authMe = data => {
+    const { email, password } = data;
     return async dispatch => {
-        const response = await registrationAPI.registration(data);
+        const response = await authAPI.authenticate(email, password);
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
             let userToken = response.data.token;
@@ -30,4 +31,4 @@ export const RegistrationMe = data => {
 
     };
 };
-export default registrationReducer;
+export default authReducer;

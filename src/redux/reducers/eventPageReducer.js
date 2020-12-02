@@ -1,4 +1,4 @@
-import { eventPageAPI } from '../api/api';
+import { eventPageAPI } from '../../api/api';
 
 const SET_EVENT_PHOTO = 'SET_EVENT_PHOTO';
 const SET_EVENT_INFO = 'SET_EVENT_INFO';

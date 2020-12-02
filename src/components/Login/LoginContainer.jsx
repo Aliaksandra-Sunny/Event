@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Login from './Login';
-import { authMe } from '../../redux/authReducer';
+import { authMe } from '../../redux/reducers/authReducer';
 
 const LoginContainer = props => (
     <Login {...props} />

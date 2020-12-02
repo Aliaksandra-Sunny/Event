@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Main from './Main';
-import { setMainData } from '../../redux/mainReducer';
+import { setMainData } from '../../redux/reducers/mainReducer';
 
 const MainContainer = props => {
 

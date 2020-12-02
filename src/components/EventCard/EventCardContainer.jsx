@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import EventCard from './EventCard';
-import { getEventPhoto, getEventInfo, follow, unfollow } from '../../redux/eventPageReducer';
+import { getEventPhoto, getEventInfo, follow, unfollow } from '../../redux/reducers/eventPageReducer';
 
 const EventCardContainer = props => {
     const {

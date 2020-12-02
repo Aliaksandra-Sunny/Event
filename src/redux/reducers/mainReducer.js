@@ -1,4 +1,4 @@
-import { eventPageAPI } from '../api/api';
+import { eventPageAPI } from '../../api/api';
 
 const SET_MAIN_MENU = 'SET-MAIN-MENU';
 
