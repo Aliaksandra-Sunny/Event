@@ -9,7 +9,8 @@ import store from './redux/redux-store';
 import RegistrationContainer from './components/Registration/RegistrationContainer';
 import Main from './components/Main/Main';
 import EventCardContainer from './components/EventCard/EventCardContainer';
-import CreateEventContainer from './components/сreateEvent/CreateEventContainer';
+import CreateEventContainer from './components/CreateEvent/CreateEventContainer';
+import EventFeedContainer from './components/EventFeed/EventFeedContainer';
 
 const App = () => (
     <Provider store={store}>
@@ -22,6 +23,7 @@ const App = () => (
                     <Route path="/main" render={() => <Main />} />
                     <Route path="/event" render={() => <EventCardContainer />} />
                     <Route path="/create" render={() => <CreateEventContainer />} />
+                    <Route path="/feed" render={() => <EventFeedContainer />} />
                 </div>
                 <Footer />
             </div>

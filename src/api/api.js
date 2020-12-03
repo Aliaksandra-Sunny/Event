@@ -33,24 +33,24 @@ export const registrationAPI = {
 };
 
 export const eventPageAPI = {
-    getEventPhoto() {
-        return tokenInstance.get('picture/40?format=base64');
+    getEventPhoto(id) {
+        return tokenInstance.get(`picture/${id}?format=base64`);
     },
 
-    getEventInfo() {
-        return tokenInstance.get('event/24');
+    getEventInfo(id) {
+        return tokenInstance.get(`event/${id}`);
     },
 
     getAllEvents() {
         return tokenInstance.get('events');
     },
 
-    follow() {
-        return tokenInstance.post('event/24/go');
+    follow(id) {
+        return tokenInstance.post(`event/${id}/go`);
     },
 
-    unfollow() {
-        return tokenInstance.delete('event/24/leave');
+    unfollow(id) {
+        return tokenInstance.delete(`event/${id}/leave`);
     },
 
 };
@@ -66,5 +66,15 @@ export const createEventAPI = {
             category,
         };
         return tokenInstance.post('event', requestData);
+    },
+};
+
+export const getAllEventsAPI = {
+    getAllEvents() {
+        return tokenInstance.get('events');
+    },
+
+    getAvatarByPhotoId(id) {
+        return tokenInstance.get(`picture/${id}?format=base64`);
     },
 };

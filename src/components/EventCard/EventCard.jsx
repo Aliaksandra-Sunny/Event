@@ -103,7 +103,7 @@ const ButtonWrapper = styled.div`
 
 const EventCard = props => {
 
-    const { photo, author, description, category, start, finish, place, follow, unfollow, followed } = props;
+    const { photo, author, description, category, start, finish, place, follow, unfollow, followed, eventId } = props;
     const dayOfEvent = moment(start).format('L:');
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
@@ -117,9 +117,20 @@ const EventCard = props => {
                     <ButtonWrapper>
                         {
                             followed ? (
-                                <GoButton text="Не пойду" handler={unfollow} />
+                                <GoButton
+                                    text="Не пойду"
+                                    handler={() => {
+                                        unfollow(eventId);
+                                    }}
+                                />
                             ) : (
-                                <GoButton text="Пойду" handler={follow} />
+                                <GoButton
+                                    text="Пойду"
+                                    handler={() => {
+                                        follow(eventId);
+                                    }}
+                                    eventId={eventId}
+                                />
                             )
                         }
                     </ButtonWrapper>
