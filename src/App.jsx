@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import LoginContainer from './components/Login/LoginContainer';
 import store from './redux/redux-store';
@@ -11,12 +10,13 @@ import Main from './components/Main/Main';
 import EventCardContainer from './components/EventCard/EventCardContainer';
 import CreateEventContainer from './components/CreateEvent/CreateEventContainer';
 import EventFeedContainer from './components/EventFeed/EventFeedContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 const App = () => (
     <Provider store={store}>
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header />
+                <HeaderContainer />
                 <div className="app-wrapper-content">
                     <Route path="/login" render={() => <LoginContainer />} />
                     <Route path="/registration" render={() => <RegistrationContainer />} />

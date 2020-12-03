@@ -5,6 +5,7 @@ import EventIcon from '@material-ui/icons/Event';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import GoButton from '../../common/GoButton';
+import ReturnButton from '../../common/ReturnButton';
 
 const blockWidth = 728;
 const white = '#FFFFFF';
@@ -75,7 +76,7 @@ const Description = styled.div`
     width: 613px;
     height: 80px;
     font-weight: 300;
-    margin: 35px 0 0 57px;
+    margin: 35px 0 20px 57px;
 `;
 
 const DateAndPlace = styled.div`
@@ -101,12 +102,48 @@ const ButtonWrapper = styled.div`
     right: 20px;
 `;
 
+const Navigation = styled.div`
+    display: flex;
+    justify-content: space-between;
+    && {
+        box-shadow: none;
+    }
+    & > div {
+        margin: 0 15px 15px 15px;
+    }
+`;
+
 const EventCard = props => {
 
     const { photo, author, description, category, start, finish, place, follow, unfollow, followed, eventId } = props;
     const dayOfEvent = moment(start).format('L:');
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
+
+    const ApplyButton = () => {
+        return (
+            <div>
+                {
+                    followed ? (
+                        <GoButton
+                            text="Не пойду"
+                            handler={() => {
+                                unfollow(eventId);
+                            }}
+                        />
+                    ) : (
+                        <GoButton
+                            text="Пойду"
+                            handler={() => {
+                                follow(eventId);
+                            }}
+                            eventId={eventId}
+                        />
+                    )
+                }
+            </div>
+        );
+    };
 
     return (
         <MainEventCard>
@@ -115,24 +152,7 @@ const EventCard = props => {
                 <EventPhoto>
                     <StyledImg src={`${photo}`} alt="EventPhoto" />
                     <ButtonWrapper>
-                        {
-                            followed ? (
-                                <GoButton
-                                    text="Не пойду"
-                                    handler={() => {
-                                        unfollow(eventId);
-                                    }}
-                                />
-                            ) : (
-                                <GoButton
-                                    text="Пойду"
-                                    handler={() => {
-                                        follow(eventId);
-                                    }}
-                                    eventId={eventId}
-                                />
-                            )
-                        }
+                        <ApplyButton />
                     </ButtonWrapper>
                 </EventPhoto>
                 <EventDescription>
@@ -170,6 +190,10 @@ const EventCard = props => {
                 <EventVizitors>
                     {author.name}
                 </EventVizitors>
+                <Navigation>
+                    <ReturnButton />
+                    <ApplyButton />
+                </Navigation>
             </AboutEvent>
         </MainEventCard>
     );

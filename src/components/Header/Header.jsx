@@ -18,21 +18,39 @@ const StyledLink = styled(Link)`
     cursor: pointer;
 `;
 
-const Header = () => {
+const User = styled.div`
+    color: white;
+`;
+
+const Header = props => {
+
+    const { userInfo, token } = props;
     return (
         <header className={style.header}>
             <StyledLink to="/main">
                 <img src={event} alt="HeaderImg" />
             </StyledLink>
             <div className={style.login}>
-                <SignIn>
-                    <StyledNavLink to="/login">Sign in</StyledNavLink>
-                </SignIn>
-                <span>
-                    <StyledNavLink to="/registration">Registration</StyledNavLink>
-                </span>
+                {
+                    token && userInfo ? (
+                        <User>
+                            {userInfo.name}
+                        </User>
+                    ) : (
+                        <div>
+                            <SignIn>
+                                <StyledNavLink to="/login">Sign in</StyledNavLink>
+                            </SignIn>
+                            <span>
+                                <StyledNavLink to="/registration">Registration</StyledNavLink>
+                            </span>
+                            <SignIn />
+                        </div>
+                    )
+                }
             </div>
         </header>
+
     );
 };
 

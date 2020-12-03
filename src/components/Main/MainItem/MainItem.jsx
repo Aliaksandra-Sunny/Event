@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+`;
 
 const Item = styled.div`
     height: 120px;
@@ -20,12 +26,15 @@ const Title = styled.div`
 const MainItem = props => {
     const { logo, title } = props;
     return (
-        <Item>
-            <StyledImg src={logo} alt="Main Logo" />
-            <Title>
-                {title}
-            </Title>
-        </Item>
+        <StyledLink to={{ pathname: '/feed' }}>
+            <Item>
+                <StyledImg src={logo} alt="Main Logo" />
+                <Title>
+                    {title}
+                </Title>
+            </Item>
+        </StyledLink>
+
     );
 };
 

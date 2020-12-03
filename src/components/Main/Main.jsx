@@ -20,8 +20,8 @@ const FlexContainer = styled.div`
         "third third third";
     grid-template-rows: 90px 90px 90px;
     grid-template-columns: 90px 90px 90px;
-    row-gap: 70px;
-    grid-gap: 70px;
+    row-gap: 100px;
+    grid-gap: 100px;
 `;
 
 const Main = () => {
@@ -29,7 +29,7 @@ const Main = () => {
     return (
         <Container>
             <FlexContainer>
-                {logosArray.map(logo => (<MainItem logo={logo[1]} title={logo[0]} />))}
+                {logosArray.map(logo => (<MainItem logo={logo[1]} title={logo[0]} key={logo[0]} />))}
             </FlexContainer>
         </Container>
     );

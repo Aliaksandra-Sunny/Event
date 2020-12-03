@@ -15,7 +15,7 @@ const EventFeed = props => {
 
     return (
         <EventFeedWrapper>
-            {events.map(event => (<EventItem event={event} />))}
+            {events.map(event => (<EventItem event={event} key={event.id} />))}
         </EventFeedWrapper>
     );
 };

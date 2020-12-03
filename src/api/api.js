@@ -17,6 +17,10 @@ export const authAPI = {
     authenticate(email, password) {
         return instance.post('authenticate', { email, password });
     },
+
+    getCurrentUser() {
+        return tokenInstance.get('user');
+    },
 };
 
 export const registrationAPI = {
