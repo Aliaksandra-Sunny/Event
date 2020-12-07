@@ -21,7 +21,7 @@ const FlexContainer = styled.div`
     grid-template-rows: 90px 90px 90px;
     grid-template-columns: 90px 90px 90px;
     row-gap: 100px;
-    grid-gap: 100px;
+    grid-gap: 50px;
 `;
 
 const Main = () => {

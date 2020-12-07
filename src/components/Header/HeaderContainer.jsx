@@ -4,7 +4,7 @@ import { authMe, getCurrentUser } from '../../redux/reducers/authReducer';
 import Header from './Header';
 
 const LoginContainer = props => {
-    const { isAuth, getCurrentUser, userInfo } = props;
+    const { isAuth, getCurrentUser, userInfo, userImg } = props;
     const token = localStorage.token;
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const LoginContainer = props => {
 
     return (
         <div>
-            <Header userInfo={userInfo} isAuth={isAuth} token={token} />
+            <Header userInfo={userInfo} userImg={userImg} isAuth={isAuth} token={token} />
         </div>
 
     );
@@ -24,6 +24,7 @@ const mapStateToProps = state => {
         userToken: state.auth.userToken,
         isAuth: state.auth.isAuth,
         userInfo: state.auth.aboutUser,
+        userImg: state.auth.photo,
     };
 };
 

@@ -20,7 +20,7 @@ const App = () => (
                 <div className="app-wrapper-content">
                     <Route path="/login" render={() => <LoginContainer />} />
                     <Route path="/registration" render={() => <RegistrationContainer />} />
-                    <Route path="/main" render={() => <Main />} />
+                    <Route exact path="/" render={() => <Main />} />
                     <Route path="/event" render={() => <EventCardContainer />} />
                     <Route path="/create" render={() => <CreateEventContainer />} />
                     <Route path="/feed" render={() => <EventFeedContainer />} />

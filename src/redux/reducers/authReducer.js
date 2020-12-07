@@ -6,6 +6,7 @@ const GET_CURRENT_USER = 'GET_CURRENT_USER';
 let initialState = {
     userToken: null,
     isAuth: false,
+    userImg: null,
 };
 
 const authReducer = (state = initialState, action) => {

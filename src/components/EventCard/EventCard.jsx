@@ -33,7 +33,7 @@ const AboutEvent = styled.div`
 const EventPhoto = styled.div`
     width: ${blockWidth}px;
     height: 345px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     position: relative;
 `;
 
@@ -41,21 +41,20 @@ const EventDescription = styled.div`
     height: 199px;
     width: ${blockWidth}px;
     background-color: ${white};
-    margin: 5px 0 30px 0;
+    margin: 5px 0 20px 0;
 `;
 
 const EventTimeAndDate = styled.div`
-    height: 199px;
     width: ${blockWidth}px;
     background-color: ${white};
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 `;
 
 const EventVizitors = styled.div`
     height: 70px;
     width: ${blockWidth}px;
     background-color: ${white};
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 `;
 
 const StyledImg = styled.img`
@@ -70,6 +69,11 @@ const Title = styled.div`
     height: 20px;
     font-weight: 900;
     margin: 35px 0 0 57px;
+`;
+
+const Comment = styled.p`
+    margin: 5px 0;
+    color: grey;
 `;
 
 const Description = styled.div`
@@ -163,6 +167,7 @@ const EventCard = props => {
                         {description}
                     </Description>
                 </EventDescription>
+                <Comment>Время и место проведения</Comment>
                 <EventTimeAndDate>
                     <DateAndPlaceBlock>
                         <DateAndPlace>
@@ -187,6 +192,7 @@ const EventCard = props => {
                         </DateAndPlace>
                     </DateAndPlaceBlock>
                 </EventTimeAndDate>
+                <Comment>Хотят пойти</Comment>
                 <EventVizitors>
                     {author.name}
                 </EventVizitors>
