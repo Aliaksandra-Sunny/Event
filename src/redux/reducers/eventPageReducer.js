@@ -1,9 +1,8 @@
-import { eventPageAPI } from '../../api/api';
+import { authAPI, eventPageAPI } from '../../api/api';
 
 const SET_EVENT_PHOTO = 'SET_EVENT_PHOTO';
 const SET_EVENT_INFO = 'SET_EVENT_INFO';
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
+const FOLLOW_AND_UNFOLLOW = 'FOLLOW_AND_UNFOLLOW';
 
 const eventPageReducer = (state = {}, action) => {
     switch (action.type) {
@@ -13,16 +12,10 @@ const eventPageReducer = (state = {}, action) => {
                 eventPhoto: action.photo,
             };
 
-        case FOLLOW:
+        case FOLLOW_AND_UNFOLLOW:
             return {
                 ...state,
-                followed: true,
-            };
-
-        case UNFOLLOW:
-            return {
-                ...state,
-                followed: false,
+                followed: action.participantsIds.includes(action.userid),
             };
 
         case SET_EVENT_INFO:
@@ -36,6 +29,8 @@ const eventPageReducer = (state = {}, action) => {
                 finish: action.eventInfo.finish,
                 place: action.eventInfo.place,
                 author: action.eventInfo.author,
+                userIds: action.eventInfo.userIds,
+                followed: action.eventInfo.userIds.includes(action.userId.data.id),
             };
         default:
             return state;
@@ -44,35 +39,44 @@ const eventPageReducer = (state = {}, action) => {
 };
 
 export const setEventPhotoAC = photo => ({ type: SET_EVENT_PHOTO, photo });
-export const setEventInfoAC = eventInfo => ({ type: SET_EVENT_INFO, eventInfo });
-export const followAC = status => ({ type: FOLLOW, status });
-export const unfollowAC = status => ({ type: UNFOLLOW, status });
+export const setEventInfoAC = (eventInfo, userId) => ({ type: SET_EVENT_INFO, eventInfo, userId });
+export const followAndUnFollowAC = (
+    status,
+    userid,
+    participantsIds
+) => ({ type: FOLLOW_AND_UNFOLLOW, status, userid, participantsIds });
 
 export const getEventPhoto = id => async dispatch => {
-    const response = await eventPageAPI.getEventPhoto(id);
-    if (response.status === 200) {
-        dispatch(setEventPhotoAC(response.data));
+    if (id) {
+        const response = await eventPageAPI.getEventPhoto(id);
+        if (response.status === 200) {
+            dispatch(setEventPhotoAC(response.data));
+        }
     }
+
 };
 
 export const getEventInfo = id => async dispatch => {
     const response = await eventPageAPI.getEventInfo(id);
+    const userId = await authAPI.getCurrentUser();
     if (response.status === 200) {
-        dispatch(setEventInfoAC(response.data));
+        dispatch(setEventInfoAC(response.data, userId));
     }
 };
 
-export const follow = id => async dispatch => {
+export const follow = (id, userId) => async dispatch => {
     const response = await eventPageAPI.follow(id);
+    const currentEvent = await eventPageAPI.getEventInfo(id);
     if (response.status === 200) {
-        dispatch(followAC(response.data));
+        dispatch(followAndUnFollowAC(response.data, userId, currentEvent.data.userIds));
     }
 };
 
-export const unfollow = id => async dispatch => {
+export const unfollow = (id, userId) => async dispatch => {
     const response = await eventPageAPI.unfollow(id);
+    const currentEvent = await eventPageAPI.getEventInfo(id);
     if (response.status === 200) {
-        dispatch(unfollowAC(response.data));
+        dispatch(followAndUnFollowAC(response.data, userId, currentEvent.data.userIds));
     }
 };
 

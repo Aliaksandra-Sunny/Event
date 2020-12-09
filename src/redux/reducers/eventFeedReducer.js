@@ -23,8 +23,10 @@ export const getAllEvents = () => async dispatch => {
     if (response.status === 200) {
         const result = await Promise.all(response.data.map(async event => {
             const { avatarId } = event;
-            let photo = await getAllEventsAPI.getAvatarByPhotoId(avatarId);
-            event.avatar = photo.data;
+            if (avatarId) {
+                let photo = await getAllEventsAPI.getAvatarByPhotoId(avatarId);
+                event.avatar = photo.data;
+            }
             return event;
         }));
         return dispatch(getAllEventsAC(result));

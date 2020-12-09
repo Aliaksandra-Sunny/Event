@@ -39,7 +39,7 @@ const UserPhoto = styled.img`
 
 const Header = props => {
 
-    const { userInfo, token } = props;
+    const { userInfo, userImg, token } = props;
     return (
         <header className={style.header}>
             <StyledLink to="/">
@@ -49,7 +49,7 @@ const Header = props => {
                 {
                     token && userInfo ? (
                         <User>
-                            <UserPhoto src={userPhoto} />
+                            <UserPhoto src={userImg || userPhoto} />
                             <UserName>{userInfo.name}</UserName>
                         </User>
                     ) : (

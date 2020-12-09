@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import EventImg from '../../../img/EventPhoto.jpg';
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -67,7 +68,7 @@ const EventFeed = props => {
     const dayOfEvent = moment(start).format('L:');
     return (
         <StyledLink to={{
-            pathname: '/event',
+            pathname: `/event/${id}`,
             state: {
                 eventId: id,
                 photoId: avatarId,
@@ -76,7 +77,7 @@ const EventFeed = props => {
         >
             <EventItem>
                 <StyledImgContainer>
-                    <StyledImg src={avatar} alt="EventPhoto" />
+                    <StyledImg src={avatar || EventImg} alt="EventPhoto" />
                 </StyledImgContainer>
                 <Info>
                     <Title>

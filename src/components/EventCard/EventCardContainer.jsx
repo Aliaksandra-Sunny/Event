@@ -4,6 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useLocation } from 'react-router-dom';
 import EventCard from './EventCard';
 import { getEventPhoto, getEventInfo, follow, unfollow } from '../../redux/reducers/eventPageReducer';
+import EventImg from '../../img/EventPhoto.jpg';
 
 const EventCardContainer = props => {
     const location = useLocation();
@@ -18,24 +19,26 @@ const EventCardContainer = props => {
         start,
         finish,
         place,
-        followed,
         follow,
         unfollow,
+        followed,
+        userId,
     } = props;
 
     const { state } = location;
     const { eventId, photoId } = state;
 
     useEffect(() => {
-        getEventPhoto(photoId);
         getEventInfo(eventId);
+        getEventPhoto(photoId);
     }, []);
 
     return (
         <div>
             {
-                photo && id ? (
+                (photo || EventImg) && id ? (
                     <EventCard
+                        EventImg={EventImg}
                         photo={photo}
                         author={author}
                         description={description}
@@ -43,10 +46,11 @@ const EventCardContainer = props => {
                         start={start}
                         finish={finish}
                         place={place}
-                        followed={followed}
+                        eventId={eventId}
                         follow={follow}
                         unfollow={unfollow}
-                        eventId={eventId}
+                        followed={followed}
+                        userId={userId.id}
                     />
                 ) :
                     <LinearProgress color="secondary" />
@@ -57,6 +61,7 @@ const EventCardContainer = props => {
 };
 const mapStateToProps = state => {
     return {
+        userId: state.auth.aboutUser,
         followed: state.eventPage.followed,
         photo: state.eventPage.eventPhoto,
         id: state.eventPage.id,

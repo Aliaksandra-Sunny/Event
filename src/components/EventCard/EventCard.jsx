@@ -38,7 +38,6 @@ const EventPhoto = styled.div`
 `;
 
 const EventDescription = styled.div`
-    height: 199px;
     width: ${blockWidth}px;
     background-color: ${white};
     margin: 5px 0 20px 0;
@@ -78,7 +77,6 @@ const Comment = styled.p`
 
 const Description = styled.div`
     width: 613px;
-    height: 80px;
     font-weight: 300;
     margin: 35px 0 20px 57px;
 `;
@@ -119,7 +117,22 @@ const Navigation = styled.div`
 
 const EventCard = props => {
 
-    const { photo, author, description, category, start, finish, place, follow, unfollow, followed, eventId } = props;
+    const {
+        photo,
+        author,
+        description,
+        category,
+        start,
+        finish,
+        place,
+        follow,
+        unfollow,
+        eventId,
+        followed,
+        userId,
+        EventImg,
+    } = props;
+
     const dayOfEvent = moment(start).format('L:');
     const timeOfEvent = moment(start).format('hh:mm');
     const timeOfEndEvent = moment(finish).format('hh:mm');
@@ -132,16 +145,15 @@ const EventCard = props => {
                         <GoButton
                             text="Не пойду"
                             handler={() => {
-                                unfollow(eventId);
+                                unfollow(eventId, userId);
                             }}
                         />
                     ) : (
                         <GoButton
                             text="Пойду"
                             handler={() => {
-                                follow(eventId);
+                                follow(eventId, userId);
                             }}
-                            eventId={eventId}
                         />
                     )
                 }
@@ -154,7 +166,7 @@ const EventCard = props => {
             <SimilarEvent />
             <AboutEvent>
                 <EventPhoto>
-                    <StyledImg src={`${photo}`} alt="EventPhoto" />
+                    <StyledImg src={`${photo}` || EventImg} alt="EventPhoto" />
                     <ButtonWrapper>
                         <ApplyButton />
                     </ButtonWrapper>
