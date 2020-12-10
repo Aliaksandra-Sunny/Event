@@ -12,7 +12,11 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
-            return { ...state, ...action.userToken, isAuth: true };
+            return { ...state,
+                ...action.userToken,
+                isAuth: true,
+                aboutUser: action.aboutUser,
+            };
 
         case GET_CURRENT_USER:
             return { ...state, aboutUser: action.aboutUser };
@@ -22,8 +26,8 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
-const setUserDataAC = userToken => {
-    return { type: SET_USER_DATA, userToken };
+const setUserDataAC = (userToken, aboutUser) => {
+    return { type: SET_USER_DATA, userToken, aboutUser };
 };
 
 const getCurrentUserAC = aboutUser => {
@@ -37,7 +41,8 @@ export const authMe = data => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
             let userToken = response.data.token;
-            return dispatch(setUserDataAC(userToken));
+            const userInfo = await authAPI.getCurrentUserInitial(userToken);
+            return dispatch(setUserDataAC(userToken, userInfo.data));
         }
 
     };

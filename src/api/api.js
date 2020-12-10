@@ -21,6 +21,14 @@ export const authAPI = {
     getCurrentUser() {
         return tokenInstance.get('user');
     },
+
+    getCurrentUserInitial(token) {
+        return instance.get('user', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    },
 };
 
 export const registrationAPI = {

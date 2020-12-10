@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { RegistrationMe } from '../../redux/reducers/registrationReducer';
 import Registration from './Registration';
 import Notifications from '../../common/Notifications';
@@ -11,7 +12,10 @@ const RegistrationContainer = props => {
         <div>
             <Registration {...props} />
             { isAuth ? (
-                <Notifications severity="success" text="Registration successful" />
+                <div>
+                    <Redirect to="/" />
+                    <Notifications severity="success" text="Registration successful" />
+                </div>
             ) : ''}
         </div>
 

@@ -4,18 +4,25 @@ import { authMe, getCurrentUser } from '../../redux/reducers/authReducer';
 import Header from './Header';
 
 const LoginContainer = props => {
-    const { isAuth, getCurrentUser, userInfo, userImg } = props;
+
+    const { isAuth, userInfo, userImg, getCurrentUser } = props;
     const token = localStorage.token;
 
     useEffect(() => {
-        getCurrentUser();
+        if (token) {
+            getCurrentUser();
+        }
     }, []);
 
     return (
         <div>
-            <Header userInfo={userInfo} userImg={userImg} isAuth={isAuth} token={token} />
+            <Header
+                userInfo={userInfo}
+                userImg={userImg}
+                isAuth={isAuth}
+                token={token}
+            />
         </div>
-
     );
 };
 
