@@ -6,8 +6,10 @@ import mainReducer from './reducers/mainReducer';
 import eventPageReducer from './reducers/eventPageReducer';
 import createEventReducer from './reducers/createEventReducer';
 import eventFeedReducer from './reducers/eventFeedReducer';
+import profileReducer from './reducers/profileReducer';
 
 let reducers = combineReducers({
+    profile: profileReducer,
     auth: authReducer,
     registration: registrationReducer,
     mainPage: mainReducer,

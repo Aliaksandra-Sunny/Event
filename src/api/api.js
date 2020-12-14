@@ -90,3 +90,13 @@ export const getAllEventsAPI = {
         return tokenInstance.get(`picture/${id}?format=base64`);
     },
 };
+
+export const userAPI = {
+    saveAvatarForUser(photo) {
+        return instance.post('/user/photo', photo, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    },
+};

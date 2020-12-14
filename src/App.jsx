@@ -1,35 +1,64 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Footer from './components/Footer/Footer';
 import LoginContainer from './components/Login/LoginContainer';
-import store from './redux/redux-store';
 import RegistrationContainer from './components/Registration/RegistrationContainer';
 import Main from './components/Main/Main';
 import EventCardContainer from './components/EventCard/EventCardContainer';
 import CreateEventContainer from './components/CreateEvent/CreateEventContainer';
 import EventFeedContainer from './components/EventFeed/EventFeedContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import { getCurrentUser } from './redux/reducers/authReducer';
 
-const App = () => (
-    <Provider store={store}>
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <HeaderContainer />
-                <div className="app-wrapper-content">
-                    <Route path="/login" render={() => <LoginContainer />} />
-                    <Route path="/registration" render={() => <RegistrationContainer />} />
-                    <Route exact path="/" render={() => <Main />} />
-                    <Route path="/event" render={() => <EventCardContainer />} />
-                    <Route path="/create" render={() => <CreateEventContainer />} />
-                    <Route path="/feed" render={() => <EventFeedContainer />} />
-                </div>
-                <Footer />
-            </div>
-        </BrowserRouter>
-    </Provider>
+const App = props => {
 
-);
+    const { userInfo, getCurrentUser } = props;
+    const token = localStorage.token;
 
-export default App;
+    useEffect(() => {
+        if (token) {
+            getCurrentUser();
+        }
+    }, []);
+
+    return (
+        <div>
+            {
+                token && !userInfo ?
+                    <LinearProgress color="secondary" /> :
+                    (
+                        <div className="app-wrapper">
+                            <HeaderContainer userInfo={userInfo} />
+                            <div className="app-wrapper-content">
+                                <Route path="/login" render={() => <LoginContainer />} />
+                                <Route path="/registration" render={() => <RegistrationContainer />} />
+                                <Route exact path="/" render={() => <Main />} />
+                                <Route path="/event" render={() => <EventCardContainer />} />
+                                <Route path="/create" render={() => <CreateEventContainer />} />
+                                <Route path="/feed" render={() => <EventFeedContainer />} />
+                                <Route path="/profile" render={() => <ProfileContainer />} />
+                            </div>
+                            <Footer />
+                        </div>
+                    )
+            }
+
+        </div>
+    );
+};
+
+const mapStateToProps = state => {
+    return {
+        userToken: state.auth.userToken,
+        isAuth: state.auth.isAuth,
+        userInfo: state.auth.aboutUser,
+    };
+};
+
+export default connect(mapStateToProps, {
+    getCurrentUser,
+})(App);

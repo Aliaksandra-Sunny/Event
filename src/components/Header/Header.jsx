@@ -48,10 +48,12 @@ const Header = props => {
             <div className={style.login}>
                 {
                     token && userInfo ? (
-                        <User>
-                            <UserPhoto src={userImg || userPhoto} />
-                            <UserName>{userInfo.name}</UserName>
-                        </User>
+                        <StyledLink to="/profile">
+                            <User>
+                                <UserPhoto src={userImg || userPhoto} />
+                                <UserName>{userInfo.name}</UserName>
+                            </User>
+                        </StyledLink>
                     ) : (
                         <div>
                             <SignIn>
