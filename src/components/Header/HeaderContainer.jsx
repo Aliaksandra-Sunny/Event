@@ -19,7 +19,7 @@ const HeaderContainer = props => {
     return (
         <div>
             {
-                token && userInfo ? (
+                (token && userInfo) || !token ? (
                     <Header
                         userInfo={userInfo}
                         userImg={userImg}

@@ -6,6 +6,7 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import GoButton from '../../common/GoButton';
 import ReturnButton from '../../common/ReturnButton';
+import userPhoto from '../../img/UserImg.png';
 
 const blockWidth = 728;
 const white = '#FFFFFF';
@@ -49,11 +50,15 @@ const EventTimeAndDate = styled.div`
     margin-bottom: 20px;
 `;
 
-const EventVizitors = styled.div`
+const EventVizitorsWrapper = styled.div`
     height: 70px;
     width: ${blockWidth}px;
     background-color: ${white};
     margin-bottom: 30px;
+`;
+
+const EventVizitors = styled.div`
+    margin: 10px;
 `;
 
 const StyledImg = styled.img`
@@ -115,11 +120,17 @@ const Navigation = styled.div`
     }
 `;
 
+const UserPhoto = styled.img`
+    border-radius: 100%;
+    margin: 5px 10px;
+    height: 40px;
+    width: 40px;
+`;
+
 const EventCard = props => {
 
     const {
         photo,
-        author,
         description,
         category,
         start,
@@ -129,8 +140,9 @@ const EventCard = props => {
         unfollow,
         eventId,
         followed,
-        userId,
+        userInfo,
         EventImg,
+        userIds,
     } = props;
 
     const dayOfEvent = moment(start).format('L:');
@@ -145,14 +157,14 @@ const EventCard = props => {
                         <GoButton
                             text="Не пойду"
                             handler={() => {
-                                unfollow(eventId, userId);
+                                unfollow(eventId, userInfo);
                             }}
                         />
                     ) : (
                         <GoButton
                             text="Пойду"
                             handler={() => {
-                                follow(eventId, userId);
+                                follow(eventId, userInfo);
                             }}
                         />
                     )
@@ -205,9 +217,13 @@ const EventCard = props => {
                     </DateAndPlaceBlock>
                 </EventTimeAndDate>
                 <Comment>Хотят пойти</Comment>
-                <EventVizitors>
-                    {author.name}
-                </EventVizitors>
+                <EventVizitorsWrapper>
+                    <EventVizitors>
+                        {
+                            userIds.map(logo => (<UserPhoto src={userPhoto} key={logo} />))
+                        }
+                    </EventVizitors>
+                </EventVizitorsWrapper>
                 <Navigation>
                     <ReturnButton />
                     <ApplyButton />

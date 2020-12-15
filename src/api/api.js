@@ -93,7 +93,9 @@ export const getAllEventsAPI = {
 
 export const userAPI = {
     saveAvatarForUser(photo) {
-        return instance.post('/user/photo', photo, {
+        const formData = new FormData();
+        formData.append('image', photo);
+        return instance.post('/user/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

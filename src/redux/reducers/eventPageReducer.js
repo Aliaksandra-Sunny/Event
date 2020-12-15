@@ -1,4 +1,4 @@
-import { authAPI, eventPageAPI } from '../../api/api';
+import { eventPageAPI } from '../../api/api';
 
 const SET_EVENT_PHOTO = 'SET_EVENT_PHOTO';
 const SET_EVENT_INFO = 'SET_EVENT_INFO';
@@ -15,7 +15,7 @@ const eventPageReducer = (state = {}, action) => {
         case FOLLOW_AND_UNFOLLOW:
             return {
                 ...state,
-                followed: action.participantsIds.includes(action.userid),
+                followed: action.participantsIds.includes(action.userid.id),
             };
 
         case SET_EVENT_INFO:
@@ -30,7 +30,7 @@ const eventPageReducer = (state = {}, action) => {
                 place: action.eventInfo.place,
                 author: action.eventInfo.author,
                 userIds: action.eventInfo.userIds,
-                followed: action.eventInfo.userIds.includes(action.userId.data.id),
+                followed: action.eventInfo.userIds.includes(action.userId),
             };
         default:
             return state;
@@ -56,11 +56,10 @@ export const getEventPhoto = id => async dispatch => {
 
 };
 
-export const getEventInfo = id => async dispatch => {
+export const getEventInfo = (id, userInfo) => async dispatch => {
     const response = await eventPageAPI.getEventInfo(id);
-    const userId = await authAPI.getCurrentUser();
     if (response.status === 200) {
-        dispatch(setEventInfoAC(response.data, userId));
+        dispatch(setEventInfoAC(response.data, userInfo.id));
     }
 };
 

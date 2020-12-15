@@ -22,14 +22,15 @@ const EventCardContainer = props => {
         follow,
         unfollow,
         followed,
-        userId,
+        userInfo,
+        userIds,
     } = props;
 
     const { state } = location;
     const { eventId, photoId } = state;
 
     useEffect(() => {
-        getEventInfo(eventId);
+        getEventInfo(eventId, userInfo);
         getEventPhoto(photoId);
     }, []);
 
@@ -50,7 +51,8 @@ const EventCardContainer = props => {
                         follow={follow}
                         unfollow={unfollow}
                         followed={followed}
-                        userId={userId.id}
+                        userInfo={userInfo}
+                        userIds={userIds}
                     />
                 ) :
                     <LinearProgress color="secondary" />
@@ -61,7 +63,7 @@ const EventCardContainer = props => {
 };
 const mapStateToProps = state => {
     return {
-        userId: state.auth.aboutUser,
+        userInfo: state.auth.aboutUser,
         followed: state.eventPage.followed,
         photo: state.eventPage.eventPhoto,
         id: state.eventPage.id,
@@ -72,6 +74,7 @@ const mapStateToProps = state => {
         finish: state.eventPage.finish,
         place: state.eventPage.place,
         author: state.eventPage.author,
+        userIds: state.eventPage.userIds,
     };
 };
 

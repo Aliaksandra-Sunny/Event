@@ -19,7 +19,7 @@ const setMainMenuAC = data => {
 };
 
 export const setMainData = () => async dispatch => {
-    const response = await eventPageAPI.getAllEventss();
+    const response = await eventPageAPI.getAllEvents();
     if (response.status === 200) {
         return dispatch(setMainMenuAC(response.data));
     }
