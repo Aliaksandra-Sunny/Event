@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import Profile from './Profile';
 import { getProfilePicture, setProfilePicture } from '../../redux/reducers/profileReducer';
 
 const ProfileContainer = props => {
+    const history = useHistory();
+    const token = localStorage.token;
+    if (!token) {
+        history.push('/');
+        return null;
+    }
 
     const { userInfo, getProfilePicture, profilePicture, setProfilePicture } = props;
     const { avatarId } = userInfo;

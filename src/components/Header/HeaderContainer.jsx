@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { authMe } from '../../redux/reducers/authReducer';
+import { authMe, logout } from '../../redux/reducers/authReducer';
 import Header from './Header';
 import { getProfilePicture } from '../../redux/reducers/profileReducer';
 
 const HeaderContainer = props => {
 
-    const { isAuth, userInfo, userImg, getProfilePicture } = props;
+    const { isAuth, userInfo, userImg, getProfilePicture, logout } = props;
     const token = localStorage.token;
 
     useEffect(() => {
-        if (userInfo.avatarId) {
-            getProfilePicture(userInfo.avatarId);
+        if (userInfo) {
+            const { avatarId } = userInfo;
+            if (avatarId) {
+                getProfilePicture(avatarId);
+
+            }
         }
     }, []);
 
@@ -25,6 +29,7 @@ const HeaderContainer = props => {
                         userImg={userImg}
                         isAuth={isAuth}
                         token={token}
+                        logout={logout}
                     />
                 ) :
                     <LinearProgress color="secondary" />
@@ -42,5 +47,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-    authMe, getProfilePicture,
+    authMe, getProfilePicture, logout,
 })(HeaderContainer);

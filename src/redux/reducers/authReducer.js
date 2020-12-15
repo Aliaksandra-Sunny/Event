@@ -2,6 +2,7 @@ import { authAPI } from '../../api/api';
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const GET_CURRENT_USER = 'GET_CURRENT_USER';
+const LOGOUT = 'LOGOUT';
 
 let initialState = {
     userToken: null,
@@ -18,6 +19,13 @@ const authReducer = (state = initialState, action) => {
                 aboutUser: action.aboutUser,
             };
 
+        case LOGOUT:
+            return { ...state,
+                isAuth: false,
+                aboutUser: null,
+                userImg: null,
+            };
+
         case GET_CURRENT_USER:
             return { ...state, aboutUser: action.aboutUser };
 
@@ -32,6 +40,10 @@ const setUserDataAC = (userToken, aboutUser) => {
 
 const getCurrentUserAC = aboutUser => {
     return { type: GET_CURRENT_USER, aboutUser };
+};
+
+const logOutAC = () => {
+    return { type: LOGOUT };
 };
 
 export const authMe = data => {
@@ -53,6 +65,10 @@ export const getCurrentUser = () => async dispatch => {
     if (response.status === 200) {
         dispatch(getCurrentUserAC(response.data));
     }
+};
+
+export const logout = () => dispatch => {
+    dispatch(logOutAC());
 };
 
 export default authReducer;
